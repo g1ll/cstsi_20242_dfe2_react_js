@@ -1,14 +1,8 @@
 import chalk from "chalk";
 import { exemplosNumTypes } from "./modules/numTypes.js";
 import { exemploConst, exemploVarLet } from "./modules/varLetConst.js";
-import {  Person1, Person2, Person3 } from "./modules/funcArrowFunc.js";
-// // import * as variaveis from './modules/varLetConst.js'; //usar prefixo variaveis
-// import potencia, {
-//      Person,
-//      Person1,
-//      Person2,
-//      Person3, pow, pow2, pow3 } from './modules/funcArrowFunc.js'
-// // import {pow} from './modules/funcArrowFunc.js'
+import potencia, { Person1, Person2, Person3, pow, pow2, pow3 } from './modules/funcArrowFunc.js'
+
 
 console.log(chalk.blue("Exemplos de Revisão"));
 
@@ -26,23 +20,25 @@ exemploConst();
 // console.log({num})
 
 //Revisando  functions e arrow functions
-// console.log(chalk.redBright('Exemplo 04 - Functions e Arrows fnc'))
-// console.log(potencia(2,2),pow(2,2))
-// console.log(pow2(3),pow3(3,2))
+console.log(chalk.redBright('Exemplo 04 - Functions e Arrows=>fnc'))
+console.log(potencia(2,2))
+console.log(pow(2,2))
+console.log(pow2(3))
+console.log(pow3(3,2))
 
 
 //Exemplos de conflitos de escopo do this de funcoes
-  // let p1 = new Person1();
-  // setTimeout(() => {
-  //   console.log(`p1: ${p1.age}`);
-  // }, 3000);
+  let p1 = new Person1();
+  setTimeout(() => {
+    console.log(`p1: ${p1.age}`);
+  }, 3000);
 
-  // let p2 = new Person2();
-  // setTimeout(() => {
-  //   console.log(`p2: ${p2.age}`);
-  // }, 3000);
+  let p2 = new Person2();
+  setTimeout(() => {
+    console.log(`p2: ${p2.age}`);
+  }, 4000);
 
-  // let p3 = new Person3();
-  // setTimeout(() => {
-  //   console.log('p3: ' + p3.age);
-  // }, 3000);
+  let p3 = new Person3();
+  setTimeout(() => {
+    console.log('p3: ' + p3.age);
+  }, 5000);
