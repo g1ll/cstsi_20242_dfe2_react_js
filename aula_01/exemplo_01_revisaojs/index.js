@@ -1,8 +1,10 @@
 import chalk from "chalk";
 import { exemplosNumTypes } from "./modules/numTypes.js";
 import { exemploConst, exemploVarLet } from "./modules/varLetConst.js";
-import potencia, { Person1, Person2, Person3, pow, pow2, pow3 } from './modules/funcArrowFunc.js'
+import potencia, { pow, pow2, pow3 } from './modules/funcArrowFunc.js'
 import { exemploArrays, exemploIterArrays } from "./modules/arraysMethods.js";
+import { exemploIterObjects, exemploObjetcs, filtrarProdutoNome, precosOrderDesc, produtoMaisCaro, produtosPorFornecedor } from "./modules/objectType.js";
+import { Person1, Person2, Person3 } from "./modules/funcToClasses.js";
 
 
 console.log(chalk.blue("Exemplos de Revisão"));
@@ -29,22 +31,31 @@ console.log(pow3(3,2))
 
 
 //Exemplos de conflitos de escopo do this de funcoes
-  // let p1 = new Person1();
-  // setTimeout(() => {
-  //   console.log(`p1: ${p1.age}`);
-  // }, 3000);
+  let p1 = new Person1();
+  setTimeout(() => {
+    console.log(`p1: ${p1.age}`);
+  }, 3000);
 
-  // let p2 = new Person2();
-  // setTimeout(() => {
-  //   console.log(`p2: ${p2.age}`);
-  // }, 4000);
+  let p2 = new Person2();
+  setTimeout(() => {
+    console.log(`p2: ${p2.age}`);
+  }, 4000);
 
-  // let p3 = new Person3();
-  // setTimeout(() => {
-  //   console.log('p3: ' + p3.age);
-  // }, 5000);
+  let p3 = new Person3();
+  setTimeout(() => {
+    console.log('p3: ' + p3.age);
+  }, 5000);
+  
+  // console.log(chalk.bgBlueBright('Exemplo 05 - Arrays e seus Métodos'))
+  // exemploArrays()
+  // console.log(chalk.bgBlue('Exemplo 06 - Iteração de Arrays'))
+  // exemploIterArrays()
 
-  console.log(chalk.bgBlueBright('Exemplo 05 - Arrays e seus Métodos'))
-  exemploArrays()
-  console.log(chalk.bgBlue('Exemplo 06 - Iteração de Arrays'))
-  exemploIterArrays()
+  // console.log(chalk.bgGreen('Exemplo 07 - Objetos e Classes'))
+  // exemploObjetcs()
+  // exemploIterObjects()
+  // produtoMaisCaro()
+  // console.log(precosOrderDesc())
+  // console.log(filtrarProdutoNome('Minima'))
+  // console.log(produtosPorFornecedor())
+
