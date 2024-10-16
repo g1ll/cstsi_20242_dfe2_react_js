@@ -1,22 +1,21 @@
 var num = 10;
 const exemploVarLet = () => {
-
   // var pi = 3 //Descomente para ver o erro
   let pi = 0.14; // Erro de redeclaração da variável pi
-      pi = 3.14; //Corrigir o PI reatribuindo valor
- 
-  console.log(pi,1);
+  pi = 3.14; //Corrigir o PI reatribuindo valor
+
+  console.log(pi, 1);
 
   //escopo de bloco
   if (true) {
     let pi = 3.1415;
     //imprime o valor de pi do bloco
-    console.log(pi,2);
+    console.log(pi, 2);
     if (true) {
       let pi = 4;
-      console.log(pi,3);
+      console.log(pi, 3);
     }
-    console.log(pi,4)
+    console.log(pi, 4);
   }
   //imprime o valor de pi do inicio do programa
   console.log(pi);
@@ -48,14 +47,13 @@ const exemploConst = () => {
 
   //Também é possível alterar atributos de um Objeto
   const carro = {
-        marca: "VW",
-        cor: "Preto",
-        modelo: "Gol GVII",
-        ano: 2021
-    };
+    marca: "VW",
+    cor: "Preto",
+    modelo: "Gol GVII",
+    ano: 2021,
+  };
   carro.modelo = "Fusca";
   console.table({ carro });
 };
 
-
-export {exemploVarLet, exemploConst, num}
+export { exemploVarLet, exemploConst, num };
