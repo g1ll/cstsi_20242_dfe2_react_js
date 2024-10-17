@@ -44,7 +44,9 @@ console.log(pow3(3,2))
   let p3 = new Person3();
   setTimeout(() => {
     console.log('p3: ' + p3.age);
+    process.exit(0)//Finaliza o processo do node
   }, 5000);
+
   
   // console.log(chalk.bgBlueBright('Exemplo 05 - Arrays e seus Métodos'))
   // exemploArrays()
