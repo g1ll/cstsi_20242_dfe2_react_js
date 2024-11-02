@@ -1,0 +1,30 @@
+.todo_item{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    margin: 2em;
+    font-size: 1.5em;
+}
+
+.todo_item button{
+  border-radius: 8px;
+  padding: 0 .5em ;
+  font-size: 1em;
+  background-color: transparent;
+  cursor: pointer;
+  transition: border-color 0.25s;
+}
+
+.todo_item button:hover{
+    border: 1px solid lightcoral;
+    color: red;
+}
+
+ button.todo_edit:hover{
+    border: 1px solid lightgreen;
+}
+
+.todo_item h3 {
+    margin: 0;
+    padding: 0;
+}
