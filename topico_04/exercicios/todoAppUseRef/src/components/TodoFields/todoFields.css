@@ -1,0 +1,33 @@
+.todo_fields{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    justify-items: center;
+}
+
+.todo_fields button{
+    margin-top: 1.5em;
+    width: 60%;
+    align-items: center;
+    margin: auto;
+    font-size: 1.5em;
+}
+
+
+
+.todo_fields input{
+    margin-bottom: 1.5em;
+    height: 2em;
+    font-size: 1.5em;
+    padding: 0;
+}
+
+.todo_fields label{
+    font-size: 2em;
+}
+
+.todo_fields textarea{
+    margin-bottom: 1.5em;
+    height: 10em;
+    font-size: 1.5em;
+}
