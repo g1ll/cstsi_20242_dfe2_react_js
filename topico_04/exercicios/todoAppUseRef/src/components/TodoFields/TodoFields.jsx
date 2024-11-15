@@ -6,32 +6,32 @@ import  { useEffect, useRef, useState } from "react";
 const TodoFields = ({ todo,newTodo }) => {
   // const [title, setTitle] = useState("");
   const inputTitle = useRef()
-  const [text, setText] = useState("");
+  // const [text, setText] = useState("");
+  const inputText = useRef()
 
   // const handleTodoTitle = (e) => {
   //   setTitle(e.target.value);
   // };
 
-  const handleTodoText = (e) => {
-    setText(e.target.value);
-  };
+  // const handleTodoText = (e) => {
+  //   setText(e.target.value);
+  // };
 
   const createTodo = ()=>{
    let title = inputTitle.current?.value
+   let text = inputText.current?.value
 
    if(!title || !text) return;
 
    newTodo({ title, text })
-  //  setTitle('')
   inputTitle.current.value = '';
-  setText('')
+  inputText.current.value = '';
   }
 
 useEffect(() => {
     if(todo?.title){
-      // setTitle(todo.title)
       inputTitle.current.value = todo.title
-      setText(todo.text)
+      inputText.current.value = todo.text
     }
 }, [todo])
 
@@ -50,8 +50,7 @@ useEffect(() => {
         type="text"
         name="text"
         placeholder="Texto"
-        onChange={handleTodoText}
-        value={text}
+       ref={inputText}
       />
       <button onClick={createTodo}>
         {todo?.title? "\u270F Editar Tarefa": "+ Nova Tarefa"}
