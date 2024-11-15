@@ -10,6 +10,17 @@ Currently, two official plugins are available:
 
 # Instalação React Router
 
+Após criar o projeto com o template de react usando Vite
+
+NPM:
+```shell
+   npm create vite@latest vite-npm -- --template react
+```
+
+YARN:
+```shell
+   yarn create vite ./ --template react
+```
 
 NPM:
 
