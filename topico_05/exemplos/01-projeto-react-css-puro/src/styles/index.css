@@ -33,7 +33,8 @@ body {
   background-image: url('../assets/imgs/front-end-wallpapers.jpg');
   background-repeat: no-repeat;
   background-size: contain;
-  background-color: rgb(220, 237, 237);
+  background-color:  #242424;;
+
 }
 
 h1 {
@@ -64,6 +65,9 @@ button:focus-visible {
   :root {
     color: #213547;
     background-color: #ffffff;
+  }
+  body{
+    background-color: #dceded;
   }
   a:hover {
     color: #747bff;
