@@ -1,0 +1,64 @@
+/* #root {
+  max-width: 1280px;
+  margin: 0 auto;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+} */
+
+@keyframes logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  a:nth-of-type(3) img {
+    animation: logo-spin infinite 20s linear;
+  }
+}
+
+.card {
+  padding: 2em;
+}
+
+.read-the-docs {
+  color: #888;
+}
+
+@media screen and (min-width:320px) {
+  #root{
+    padding-top: 50%;
+    width:100vw;
+  }
+}
+
+@media screen and (min-width:450px) {
+  #root{
+    padding-top: 40%;
+    width:100vw;
+  }
+}
+
+@media screen and (min-width:680px) {
+  #root{
+    width:75vw;
+    padding-top: 30%;
+  }
+}
+
+@media screen and (min-width:1280px) {
+  #root{
+    width:50vw;
+    padding-top: 10%;
+  }
+  
+  body{
+    background-size: 50%;
+    background-repeat: repeat-x;
+  }
+}
