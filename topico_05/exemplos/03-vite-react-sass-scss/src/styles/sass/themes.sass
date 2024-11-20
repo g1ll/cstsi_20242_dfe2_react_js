@@ -1,0 +1,15 @@
+@use "sass:map"
+@use "sass:string"
+@use "colors.sass"
+
+@mixin themeDefine($theme, $property, $color)
+  #{$property}: map.get($theme, $color)
+
+@mixin setTheme($property, $color)
+  $light: map.get(colors.$themes, colors.$light-theme)
+  $dark: map.get(colors.$themes,colors.$dark-theme)
+
+  @include themeDefine($dark, $property, $color)
+
+  @media (prefers-color-scheme: light)
+    @include themeDefine($light, $property, $color)

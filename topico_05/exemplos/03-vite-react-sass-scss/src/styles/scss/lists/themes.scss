@@ -1,0 +1,62 @@
+@use "sass:map";
+@use "sass:string";
+@use 'sass:list';
+@use 'sass:meta';
+
+
+$dark-theme: "dark-theme";
+$light-theme: "light-theme";
+
+$primary-color: "primary-color";
+$main-bg-color: "main-bg-color";
+$color: "text-color";
+
+$themes: (
+    $light-theme: (
+      $primary-color: lightblue,
+      $main-bg-color:#dceded,
+      text-color: #242424,
+    ), 
+    $dark-theme: (
+      $primary-color: gray,
+      $main-bg-color:#242424,
+      text-color: #dceded,
+    ),
+  );
+
+$mediaPropertiesThemes: '';
+$mediaColorsThemes: '';
+
+@function append-theme($property, $color){
+  $mediaPropertiesThemes: list.append($mediaPropertiesThemes, #{$property}) !global; 
+  $mediaColorsThemes: list.append($mediaColorsThemes, #{$color}) !global;
+  @return "theme";
+}
+
+@mixin themeDefine($theme, $property, $color){
+  #{$property}: map.get($theme, $color);
+}
+
+@mixin setTheme($property, $color) {
+  $fnc:append-theme($property, $color);
+  $dark: map.get($themes, $dark-theme);
+
+  @include themeDefine($dark, $property, $color);
+  
+}
+
+@mixin makeMediaTheme(){
+  $light: map.get($themes, $light-theme);
+
+  @media (prefers-color-scheme: light){
+    @each $prop in $mediaPropertiesThemes {
+      $indexProp: list.index($mediaPropertiesThemes,$prop);
+      $color: list.nth($mediaColorsThemes, $indexProp);
+
+      @include themeDefine($light, $prop, $color);
+    }
+
+    $mediaPropertiesThemes: '';
+    $mediaColorsThemes: ''; 
+  }
+}

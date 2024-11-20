@@ -1,0 +1,10 @@
+:root{--paragraph-color:violet}
+
+p{
+    color:green;
+    background-color: blue;
+    &:hover{
+        color:var(--paragraph-color);
+        background-color: white;
+    }
+}
