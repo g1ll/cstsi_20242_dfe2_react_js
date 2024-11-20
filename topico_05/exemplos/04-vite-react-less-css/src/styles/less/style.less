@@ -1,0 +1,20 @@
+@import "theme";
+
+.css_logo {
+  filter: grayscale();
+  
+  &:hover {
+    transform: scale(1.2);
+  }
+}
+
+.dev {
+  background-image: url("/img/frontdev.png");
+  background-size: cover;
+  width: 50vw;
+  aspect-ratio: 1;
+  background-size: cover;
+  border-radius: 50%;
+  
+  .setTheme(background-color, @primary-color);
+}

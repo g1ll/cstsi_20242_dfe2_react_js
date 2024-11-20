@@ -1,0 +1,16 @@
+ @import 'colors';
+
+.themeDefine(@property, @value) {
+  @{property}: @value;
+}
+
+.setTheme(@property, @color) {
+    @light-color: @themes[@light-theme][@@color];
+    @dark-color: @themes[@dark-theme][@@color];
+  
+    .themeDefine(@property, @dark-color);
+
+    @media (prefers-color-scheme: light){
+      .themeDefine(@property, @light-color);
+    }
+  }
