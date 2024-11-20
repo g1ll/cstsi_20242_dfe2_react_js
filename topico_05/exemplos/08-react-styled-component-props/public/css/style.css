@@ -1,0 +1,19 @@
+.css_logo {
+  filter: grayscale();
+}
+
+.css_logo:hover {
+  transform: scale(1.2);
+}
+
+.dev {
+  /*Assests na PUBLIC: URL realtivo ao caminho a partir
+         da própria public para o local da imagem*/
+  background-image: url("/img/frontdev.png");
+  background-size: cover;
+  width: 50vw;
+  aspect-ratio: 1;
+  background-size: cover;
+  background-color: lightblue;
+  border-radius: 50%;
+}
