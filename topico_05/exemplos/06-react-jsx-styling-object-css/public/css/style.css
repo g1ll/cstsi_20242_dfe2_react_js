@@ -1,0 +1,7 @@
+.css_logo{
+    filter: grayscale();
+}
+
+.css_logo:hover{
+    transform: scale(1.2);
+}
