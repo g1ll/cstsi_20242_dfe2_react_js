@@ -1,8 +1,9 @@
 import { useState } from 'react'
-import reactLogo from './assets/react.svg'
+import reactLogo from './assets/react.svg'//relativo ao script (App.jsx)
 import viteLogo from '/vite.svg'
-import cssLogo from '/img/css3.png'
-import '../public/css/style.css'
+import cssLogo from '/img/css3.png'// public/..
+import '../public/css/style.css' //relativo (../../)
+// import '/css/style.css' //absoluto
 import './App.css'
 
 function App() {
