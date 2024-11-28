@@ -1,0 +1,20 @@
+$dark-theme: "dark-theme";
+$light-theme: "light-theme";
+
+// $primary-color: "primary-color";
+$img-bg-color: "img-bg-color";
+$main-bg-color: "main-bg-color";
+$color: "text-color";
+
+$themes: (
+    $light-theme: (
+      $img-bg-color: lightblue,
+      $main-bg-color:#dceded,
+      text-color: #242424,
+    ), 
+    $dark-theme: (
+      $img-bg-color: gray,
+      $main-bg-color:#242424,
+      text-color: #dceded,
+    ),
+  );

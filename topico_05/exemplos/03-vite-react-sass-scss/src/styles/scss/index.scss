@@ -1,5 +1,6 @@
-// @use '../sass/themes.sass';
 @use "lists/themes.scss";
+// @use "themes.scss";
+@use "colors.scss";
 
 :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
@@ -11,14 +12,8 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 
-  @include themes.setTheme("color", themes.$color);
-  @include themes.setTheme("background-color", themes.$main-bg-color);
-
-
-
-
-
-  
+  @include themes.setTheme("color", colors.$color);
+  @include themes.setTheme("background-color", colors.$main-bg-color); 
   @include themes.makeMediaTheme();
 }
 
@@ -41,7 +36,7 @@ body {
   background-repeat: no-repeat;
   background-size: contain;
 
-  @include themes.setTheme("background-color", themes.$main-bg-color);
+  @include themes.setTheme("background-color", colors.$main-bg-color);
   @include themes.makeMediaTheme();
 }
 
