@@ -11,5 +11,6 @@ export default function DevIllustration() {
 
   return (
     <DevIllustrationStyled $bgColor={themeContext.illustBgColor}/>
+    // <DevIllustrationStyled />
   );
 }
