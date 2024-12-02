@@ -1,0 +1,10 @@
+@import url(../../styles/colors.css);
+
+.footer_container{
+    height: 20vh;
+    background-color: var(--primary-color);
+}
+
+.footer_container h2{
+    color:aliceblue;
+}
