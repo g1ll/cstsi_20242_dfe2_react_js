@@ -2,27 +2,7 @@
 @use "sass:string";
 @use 'sass:list';
 @use 'sass:meta';
-
-
-$dark-theme: "dark-theme";
-$light-theme: "light-theme";
-
-$primary-color: "primary-color";
-$main-bg-color: "main-bg-color";
-$color: "text-color";
-
-$themes: (
-    $light-theme: (
-      $primary-color: lightblue,
-      $main-bg-color:#dceded,
-      text-color: #242424,
-    ), 
-    $dark-theme: (
-      $primary-color: gray,
-      $main-bg-color:#242424,
-      text-color: #dceded,
-    ),
-  );
+@use '../colors.scss';
 
 $mediaPropertiesThemes: '';
 $mediaColorsThemes: '';
@@ -38,15 +18,15 @@ $mediaColorsThemes: '';
 }
 
 @mixin setTheme($property, $color) {
-  $fnc:append-theme($property, $color);
-  $dark: map.get($themes, $dark-theme);
+  $fnc:append-theme($property, $color);//executa a função append-theme
+  $dark: map.get(colors.$themes, colors.$dark-theme);
 
   @include themeDefine($dark, $property, $color);
   
 }
 
 @mixin makeMediaTheme(){
-  $light: map.get($themes, $light-theme);
+  $light: map.get(colors.$themes, colors.$light-theme);
 
   @media (prefers-color-scheme: light){
     @each $prop in $mediaPropertiesThemes {

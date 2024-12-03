@@ -1,30 +1,6 @@
 @use "sass:map";
 @use "sass:string";
-
-$dark-theme: "dark-theme";
-$light-theme: "light-theme";
-
-// $primary-color: "primary-color";
-$img-bg-color: "img-bg-color";
-$main-bg-color: "main-bg-color";
-$color: "text-color";
-
-$themes: (
-    $light-theme: (
-      $img-bg-color: lightblue,
-      $main-bg-color:#dceded,
-      text-color: #242424,
-    ), 
-    $dark-theme: (
-      $img-bg-color: gray,
-      $main-bg-color:#242424,
-      text-color: #dceded,
-    ),
-  );
-
-
-
-
+@use "colors.scss";
 
   
 @mixin themeDefine($theme, $property, $color){
@@ -32,8 +8,8 @@ $themes: (
 }
 
 @mixin setTheme($property, $color) {
-  $light: map.get($themes, $light-theme);
-  $dark: map.get($themes, $dark-theme);
+  $light: map.get(colors.$themes, colors.$light-theme);
+  $dark: map.get(colors.$themes, colors.$dark-theme);
 
   @include themeDefine($dark, $property, $color);
 

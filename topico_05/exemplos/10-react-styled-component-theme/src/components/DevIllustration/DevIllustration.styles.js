@@ -10,5 +10,6 @@ export const DevIllustrationStyled = styled.div`
     background-repeat: no-repeat;
     background-position: center;
     background-color: ${props=>props.$bgColor};
+    /* background-color: ${props=>props.theme.illustBgColor}; */
     border-radius: 50%;
   `;
