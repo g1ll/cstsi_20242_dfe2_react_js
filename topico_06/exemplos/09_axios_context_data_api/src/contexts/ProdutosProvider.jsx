@@ -25,7 +25,7 @@ const ProdutosProvider = ({ children }) => {
       if (!_data) 
         throw new Error("Erro ao carregar produtos");
 
-      Array.isArray(_data) && _data.reverse();
+      // Array.isArray(_data) && _data.reverse();
       setData(_data);
     } catch (error) {
       console.log(error);
