@@ -1,9 +1,9 @@
 import "./home.css"
 import {useState, useEffect} from "react"
 import { Cards } from "../../components/Cards/Cards";
-import { mockedProducts } from "../../data/mockedProducts";
+// import { mockedProducts } from "../../data/mockedProducts";
 
-mockedProducts.reverse()
+// mockedProducts.reverse()
 
 const API_URL = import.meta.env.VITE_API_URL;
 
@@ -15,26 +15,26 @@ const Home = () => {
     //   setListProdutos(mockedProducts)
     // },1000);
 
-    //Promise Chain
+    //Promise Chain (then().then().catch())
     console.log(API_URL);
-    fetch(`${API_URL}/produtos`)
-      .then(response=>response.json())
-      .then(json=>{
-        console.log({json})
-        setListProdutos(json.data)
-      })
-      .catch(error=>console.log(error));
+    // fetch(`${API_URL}/produtos`)
+    //   .then(response=>response.json())
+    //   .then(json=>{
+    //     console.log({json})
+    //     setListProdutos(json.data)
+    //   })
+    //   .catch(error=>console.log(error));
 
     //Async/Await
-    // (async ()=>{
-    //   try {
-    //     const response = await fetch(`${API_URL}/produtos`);
-    //     const data = await response.json();
-    //     setListProdutos(data.data);
-    //   } catch (error) {
-    //     console.error(error)
-    //   }
-    // })();
+    (async ()=>{//IIFE Funções Invocadas Imediatamente
+      try {
+        const response = await fetch(`${API_URL}/produtos`);
+        const data = await response.json();
+        setListProdutos(data.data);
+      } catch (error) {
+        console.error(error)
+      }
+    })();
   }, [])
 
 
