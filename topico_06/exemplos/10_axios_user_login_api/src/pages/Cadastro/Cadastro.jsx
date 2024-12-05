@@ -5,6 +5,7 @@ import axiosClient from "../../utils/axios-client";
 const Cadastro = () => {
   const [disableButton, setDisableButton] = useState(true);
   const [name, setName] = useState("");
+  const [surname, setSurname] = useState("");
   const [email, setEmail] = useState("");
   const [emailInvalid, setEmailInvalid] = useState(false);
   const [password, setPassword] = useState("");
@@ -19,6 +20,11 @@ const Cadastro = () => {
     setName(event.target.value);
   };
 
+  const handleSurname = (event) => {
+    handleEnableButton();
+    setSurname(event.target.value);
+  };
+
   const handleEmail = (event) => {
     handleEnableButton();
     setEmail(event.target.value);
@@ -31,7 +37,7 @@ const Cadastro = () => {
   };
 
   const handleEnableButton = () => {
-    if (name !== "" && email !== "" && password !== "")
+    if (name !== "" && surname !== "" && email !== "" && password !== "")
       setDisableButton(
         !(confirmPassword.current.value === inputPassword.current.value)
       );
@@ -43,6 +49,7 @@ const Cadastro = () => {
       console.log({ name, email, password });
       const payload = {
         name: name,
+        surname: surname,
         email: email,
         password: password,
         password_confirmation: confirmPassword.current.value,
@@ -68,6 +75,12 @@ const Cadastro = () => {
         placeholder="Nome de Login"
         name="name"
         onChange={handleName}
+      />
+      <input
+        type="text"
+        placeholder="Sobrenome"
+        name="surname"
+        onChange={handleSurname}
       />
       <input
         type="email"
