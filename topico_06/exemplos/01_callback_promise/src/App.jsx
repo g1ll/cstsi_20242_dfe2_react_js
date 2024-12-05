@@ -3,6 +3,7 @@ import viteLogo from "/vite.svg";
 import "./App.css";
 
 function App() {
+  
   const funcCallback = (text, callback) => {
     setTimeout(() => {
       console.log(text);
@@ -46,9 +47,10 @@ function App() {
         <button
           onClick={() =>
             funcPromise("Hello")
-              .then(fun => fun("World"))
+              .then(fun => fun("World"))//resolvida
               .then(fun => fun("Promise"))
               .then(fun => fun("Chaning"))
+              .then(fun => fun("DFE2"))
           }
         >
           Promise Chaning
