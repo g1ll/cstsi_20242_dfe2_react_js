@@ -44,11 +44,13 @@ function App() {
           CallBack Hell
         </button>&nbsp;&nbsp;
         <button
-          onClick={() =>
+          onClick={() =>{
             funcPromise("Hello")
               .then(fun => fun("World"))
               .then(fun => fun("Promise"))
               .then(fun => fun("Chaning"))
+            console.log("Exemplo Promise Chaning");
+            }
           }
         >
           Promise Chaning
@@ -59,6 +61,7 @@ function App() {
               await funcPromise("World");
               await funcPromise("Async");
               await funcPromise("Await"); 
+              console.log("Exemplo Async/Await");
           }
         }
         >
@@ -72,6 +75,7 @@ function App() {
                 funcPromise("Promise"),
                 funcPromise("All")
               ]);
+              console.log("Exemplo Promise All");
           }
         }
         >
