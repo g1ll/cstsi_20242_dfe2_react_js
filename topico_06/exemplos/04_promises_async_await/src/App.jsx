@@ -9,7 +9,7 @@ function App() {
 
   const fazerCafe = nome => new Promise((resolve, reject) => {
     if (qtdCafeDisponivel <= 0) {
-      reject('Acabou o café!!!')
+      return reject('Acabou o café!!!')
     }
     setQtdCafeDisponivel(qtdCafeDisponivel - 1)
     console.log(`Preparando o café de ${nome} !!!`)
