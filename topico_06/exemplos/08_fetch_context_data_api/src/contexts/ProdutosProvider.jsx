@@ -20,7 +20,7 @@ const ProdutosProvider = ({ children }) => {
     try {
       const response = await fetch(url);
       if (response.status !== 200) 
-        throw new Error("Erro ao carregar produtos");
+        throw new Error("Erro ao carregar produtos!!");
 
       const {data} = await response.json();
       // Array.isArray(data) && data.reverse();
