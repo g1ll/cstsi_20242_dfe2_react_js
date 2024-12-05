@@ -9,17 +9,21 @@ function App() {
   const promessa = new Promise((resolve,reject) => {
     setTimeout(() => {
       resolve('Promessa cumprida!!!')
-    },1000)
+    },10000)
   
-    setTimeout(() => {
+    setTimeout(() => {//2 -> 5 segundos depois
       reject('Promessa rejeitada!!!') // lançando um erro
-    },500);
+    },5000);
   })
 
   useEffect(() => {
-    promessa.then(data=>console.log(data))
-      .catch(error=>console.error(error)) //capturando o erro
-      .finally(()=>console.log('Finalizado!!!'))
+    const myPromise = promessa
+      .then(data=>console.log(data))
+      .catch(error=>console.error(error)) //3 -> capturando o erro
+      .finally(()=>console.log('Finalizado!!!'))//4 -> settled (fulfilled or rejected)
+
+    console.log("Minha promessa:",myPromise)//1. Promise {<pending>}
+
   },[])
 
   return (
