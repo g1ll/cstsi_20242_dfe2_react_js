@@ -1,9 +1,5 @@
 import styled from 'styled-components'
 
-export const FormContainer = styled.div`
-
-`
-
 export const InputCheckbox = styled.div`
     width: 90%;
     display: flex;

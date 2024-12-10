@@ -22,9 +22,9 @@ export const ModalStyled = styled.div`
   min-width: 250px;
   width: 80%;
   top: 5vh;
-  height: 90vh;
+  height: auto;
   max-height: 700px;
-  padding: 5vh;
+  padding: 2.5vh;
   /* left: calc(50% - 125px); */
   /* bottom: 70px; */
   >div{

@@ -41,7 +41,7 @@ const ModalRemoveProduto = ({ close, removedProduto }) => {
       </Buttons>
       {message && <p className="message ">{message}</p>}
     </form>
-  </Modal >
+  </Modal>
 }
 
 export default ModalRemoveProduto
