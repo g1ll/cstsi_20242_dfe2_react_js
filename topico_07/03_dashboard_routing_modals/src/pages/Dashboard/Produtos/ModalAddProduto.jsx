@@ -3,11 +3,13 @@ import Modal from '../../../components/Modal/Modal'
 import { FormContainer, InputCheckbox, InputFileImage, InputsNumbers } from './ModalEditProdutoForm.styles'
 import { ProdutosContext } from '../../../contexts/ProdutosProvider'
 import imageUrl from '../../../assets/cards-thumbnail.jpg';
+import { useNavigate } from 'react-router-dom';
 
-const ModalAddProduto = ({ close }) => {
+const ModalAddProduto = () => {
   const { addProduto } = useContext(ProdutosContext)
   const [disableButton, setDisableButton] = useState(true)
   const [message, setMessage] = useState(null)
+  const navigate = useNavigate()
 
   const inputProdutoNome = useRef(null)
   const inputProdutoDescricao = useRef(null)
@@ -69,7 +71,7 @@ const ModalAddProduto = ({ close }) => {
 
   return <Modal
     title={`Cadastrar Novo Produto`}
-    close={close}
+    close={()=>navigate("/dashboard/produtos")}
   >
     <FormContainer action="" method="get" onSubmit={onSubmit}>
       <label>Imagem do Produto:</label>
