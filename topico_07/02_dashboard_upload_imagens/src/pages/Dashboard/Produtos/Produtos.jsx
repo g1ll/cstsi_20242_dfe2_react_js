@@ -13,17 +13,19 @@ const Produtos = () => {
   const [showModalRemove, setShowModalRemove] = useState(false)
   const [produtoAtual, setProdutoAtual] = useState({})
 
-  const openModalEdit = (id) => {
+  const findProdutoAtual = (id)=>{
     const findedProd = data.find(produto => produto.id == id)
     if (!findedProd) return;
     setProdutoAtual({ ...findedProd })
+  }
+  
+  const openModalEdit = (id) => {
+    findProdutoAtual(id)
     setShowModalEdit(true)
   }
 
   const openModalRemove = (id) => {
-    const findedProd = data.find(produto => produto.id == id)
-    if (!findedProd) return;
-    setProdutoAtual(findedProd)
+    findProdutoAtual(id)
     setShowModalRemove(true)
   }
 
