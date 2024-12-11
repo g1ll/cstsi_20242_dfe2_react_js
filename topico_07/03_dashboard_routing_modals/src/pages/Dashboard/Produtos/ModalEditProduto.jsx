@@ -3,15 +3,17 @@ import Modal from '../../../components/Modal/Modal'
 import { InputCheckbox, InputFileImage, InputsNumbers } from './ModalEditProdutoForm.styles'
 import { ProdutosContext } from '../../../contexts/ProdutosProvider'
 import imageUrl from '../../../assets/cards-thumbnail.jpg';
+import { useNavigate, useParams } from 'react-router-dom';
 
 const BASE_URL = import.meta.env.VITE_BASE_URL;
 
-const ModalEditProduto = ({ close, editedProduto }) => {
-  const {editProduto} = useContext(ProdutosContext)
+const ModalEditProduto = () => {
+  const {data, editProduto} = useContext(ProdutosContext)
+  const [editingProduto, setEditingProduto] = useState(null);
   const [disableButton, setDisableButton] = useState(true)
   const [message, setMessage] = useState(null)
-
-  console.log(editedProduto)
+  const { id } = useParams();
+  const navigate = useNavigate();
 
   const inputProdutoNome = useRef(null)
   const inputProdutoDescricao = useRef(null)
@@ -23,25 +25,32 @@ const ModalEditProduto = ({ close, editedProduto }) => {
   const inputFileRef = useRef(null)
 
   useEffect(() => {
-    inputProdutoNome.current.value = editedProduto?.nome
-    inputProdutoDescricao.current.value = editedProduto?.descricao
-    inputQtdEstoque.current.value = editedProduto?.qtd_estoque
-    inputPreco.current.value = editedProduto?.preco
-    inputIsImportado.current.checked = !!editedProduto?.importado
-  }, [])
+    if (!editingProduto && data && id) {
+      setEditingProduto(data.find((produto) => produto.id == id));
+      return;
+    }
+
+    inputProdutoNome.current.value = editingProduto?.nome;
+    inputProdutoDescricao.current.value = editingProduto?.descricao;
+    inputQtdEstoque.current.value = editingProduto?.qtd_estoque;
+    inputPreco.current.value = editingProduto?.preco;
+    inputIsImportado.current.checked = !!editingProduto?.importado;
+    console.log("editingProduto:", editingProduto);
+
+  }, [editingProduto, data, id]);
 
   const handleNome = (e) => {
     const nome = e.target.value;
     console.log('Nome', e.target.value)
     setDisableButton(!(
       e.target.value.length > 0
-      && nome.trim() !== editedProduto?.nome.trim()
+      && nome.trim() !== editingProduto?.nome.trim()
     ))
   }
 
   const handleDescricao = (e) => {
     const descricao = e.target.value;
-    const oldDescricao = editedProduto?.descricao
+    const oldDescricao = editingProduto?.descricao
     setDisableButton(!(
       descricao.length > 0
       && descricao.trim() !== oldDescricao.trim()
@@ -52,22 +61,21 @@ const ModalEditProduto = ({ close, editedProduto }) => {
     const qtdEstoque = Number(e.target.value);
     setDisableButton(!(
       Number.isInteger(qtdEstoque)
-      && qtdEstoque != editedProduto?.qtd_estoque
+      && qtdEstoque != editingProduto?.qtd_estoque
     ))
   }
 
   const handlePreco = (e) => {
     console.log('Preco', Number(e.target.value))
-    console.log('Preco diff', +e.target.valueOf() !== +editedProduto?.preco)
+    console.log('Preco diff', +e.target.valueOf() !== +editingProduto?.preco)
     setDisableButton(!(
       Number(e.target.value) > 0
-      && +e.target.value !== +editedProduto?.preco
+      && +e.target.value !== +editingProduto?.preco
     ))
   }
 
   const handleImportado = (e) => {
-    // console.log(!!e.target.checked, !!editedProduto?.importado)
-    setDisableButton(!(e.target?.checked !== !!editedProduto?.importado))
+    setDisableButton(!(e.target?.checked !== !!editingProduto?.importado))
   }
 
   const handleSelectedImage = (e) => {
@@ -92,23 +100,25 @@ const ModalEditProduto = ({ close, editedProduto }) => {
   const onSubmit = async (e) => {
     e.preventDefault()
     console.log('submit')
-
-    const produtoFormData = new FormData(e.target);
     
-    const message = await editProduto( editedProduto?.id, produtoFormData)
-    setMessage(message)
-    setTimeout(close,3000)
-
+    const produtoFormData = new FormData(e.target);
+    try{
+      const message = await editProduto( editingProduto?.id, produtoFormData)
+      setMessage(message)
+      setTimeout(()=>navigate("/dashboard/produtos"),3000)
+    }catch(error){
+      setMessage(error?.message)
+    }  
   }
 
   return <Modal
-      title={`Atualizar Produto ${editedProduto.nome}`}
-      close={close}
+      title={`Atualizar Produto ${editingProduto?.nome}`}
+      close={()=>navigate("/dashboard/produtos")}
     >
       <form action="" method="get" onSubmit={onSubmit}>
       <InputFileImage>
         <img id="image-tag"
-          src={editedProduto?.imagem ? (BASE_URL+editedProduto?.imagem) : imageUrl}
+          src={editingProduto?.imagem ? (BASE_URL+editingProduto?.imagem) : imageUrl}
           ref={inputImageRef}
         />
         <input
