@@ -1,18 +1,21 @@
-import { useContext, useEffect, useRef, useState } from "react";
-import Modal from "../../../components/Modal/Modal";
-import { InputCheckbox } from "./ModalEditProdutoForm.styles";
-import { ProdutosContext } from "../../../contexts/ProdutosProvider";
+import { useContext, useRef, useState } from 'react'
+import Modal from '../../../components/Modal/Modal'
+import { FormContainer, InputCheckbox, InputFileImage, InputsNumbers } from './ModalEditProdutoForm.styles'
+import { ProdutosContext } from '../../../contexts/ProdutosProvider'
+import imageUrl from '../../../assets/cards-thumbnail.jpg';
 
 const ModalAddProduto = ({ close }) => {
-  const { addProduto } = useContext(ProdutosContext);
-  const [disableButton, setDisableButton] = useState(true);
-  const [message, setMessage] = useState(null);
+  const { addProduto } = useContext(ProdutosContext)
+  const [disableButton, setDisableButton] = useState(true)
+  const [message, setMessage] = useState(null)
 
-  const inputProdutoNome = useRef(null);
-  const inputProdutoDescricao = useRef(null);
-  const inputQdEstoque = useRef(null);
-  const inputPreco = useRef(null);
-  const inputIsImportado = useRef(null);
+  const inputProdutoNome = useRef(null)
+  const inputProdutoDescricao = useRef(null)
+  const inputQdEstoque = useRef(null)
+  const inputPreco = useRef(null)
+  const inputIsImportado = useRef(null)
+  const inputImageRef = useRef(null)
+  const inputFileRef = useRef(null)
 
   const validateDisableDisableButton = () => {
     setDisableButton(
@@ -25,39 +28,80 @@ const ModalAddProduto = ({ close }) => {
     );
   };
 
+  const handleSelectedImage = (e) => {
+    console.log(e.target.files)
+
+    const imageFile = e.target.files[0]
+    const reader = new FileReader();
+
+    reader.addEventListener(
+      "load",
+      () => {
+        // convert image file to base64 string
+        inputImageRef.current.src = reader.result;
+      },
+      false,
+    );
+
+    imageFile && reader.readAsDataURL(imageFile);
+  }
+
   const onSubmit = async (e) => {
-    e.preventDefault();
-    console.log("submit");
-    const message = await addProduto({
+    e.preventDefault()
+    console.log('submit')
+
+    const produtoFormData = {
       nome: inputProdutoNome.current.value,
       descricao: inputProdutoDescricao.current.value,
       qtd_estoque: inputQdEstoque.current.value,
       preco: inputPreco.current.value,
       importado: inputIsImportado.current.checked,
-    });
-    setMessage(message);
-    setTimeout(close, 3000);
-  };
+      imagem: inputFileRef.current.files[0]
+    }
 
-  return (
-    <Modal title={`Cadastrar Novo Produto`} close={close}>
-      <form action="" method="get" onSubmit={onSubmit}>
-        <label>Nome</label>
-        <input
-          type="text"
-          placeholder="Nome do Produto"
-          name="name"
-          onChange={validateDisableDisableButton}
-          ref={inputProdutoNome}
+    // const produtoFormData = new FormData(e.target)
+
+    const message = await addProduto(produtoFormData)
+
+    setMessage(message)
+    setTimeout(close, 3000)
+  }
+
+  return <Modal
+    title={`Cadastrar Novo Produto`}
+    close={close}
+  >
+    <FormContainer action="" method="get" onSubmit={onSubmit}>
+      <label>Imagem do Produto:</label>
+      <InputFileImage>
+        <img id="image-tag"
+          src={imageUrl}
+          ref={inputImageRef}
         />
-        <label>Descrição:</label>
         <input
-          type="text"
-          placeholder="Descrição do Produto"
-          name="descricao"
-          onChange={validateDisableDisableButton}
-          ref={inputProdutoDescricao}
-        />
+          id='image-field'
+          type="file"
+          name="imagem"
+          onChange={handleSelectedImage}
+          ref={inputFileRef} />
+      </InputFileImage>
+      <label>Nome</label>
+      <input
+        type="text"
+        placeholder="Nome do Produto"
+        name="nome"
+        onChange={validateDisableDisableButton}
+        ref={inputProdutoNome}
+      />
+      <label>Descrição:</label>
+      <input
+        type="text"
+        placeholder="Descrição do Produto"
+        name="descricao"
+        onChange={validateDisableDisableButton}
+        ref={inputProdutoDescricao}
+      />
+      <InputsNumbers>
         <label>Quantidade em Estoque:</label>
         <input
           type="number"
@@ -73,23 +117,27 @@ const ModalAddProduto = ({ close }) => {
           ref={inputPreco}
           onChange={validateDisableDisableButton}
         />
-        <InputCheckbox>
-          <span> Importado? </span>
-          <input type="checkbox" name="importao" ref={inputIsImportado} />
-        </InputCheckbox>
+      </InputsNumbers>
+      <InputCheckbox>
+        <span> Importado? </span>
+        <input
+          type="checkbox"
+          name="importado"
+          ref={inputIsImportado}
+        />
+      </InputCheckbox>
 
-        <button
-          className={disableButton ? "btn-disabled btn-block" : "btn btn-block"}
-          disabled={disableButton ? "disabled" : ""}
-        >
-          Cadastrar Produto
-        </button>
-        {message && <p className="message">{message}</p>}
-      </form>
-    </Modal>
-  );
-};
+      <button
+        className={disableButton ? "btn-disabled btn-block" : "btn btn-block"}
+        disabled={disableButton ? "disabled" : ""}
+      >
+        Cadastrar Produto
+      </button>
+      {message && <p className="message">{message}</p>}
+    </FormContainer>
+  </Modal >
+}
 
-export default ModalAddProduto;
+export default ModalAddProduto
 
 //https://react.dev/reference/react-dom/createPortal#rendering-a-modal-dialog-with-a-portal

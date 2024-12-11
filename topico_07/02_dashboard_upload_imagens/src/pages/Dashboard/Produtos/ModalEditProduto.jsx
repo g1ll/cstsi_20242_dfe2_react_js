@@ -1,8 +1,10 @@
 import { useContext, useEffect, useRef, useState } from 'react'
 import Modal from '../../../components/Modal/Modal'
-import { InputCheckbox } from './ModalEditProdutoForm.styles'
+import { InputCheckbox, InputFileImage, InputsNumbers } from './ModalEditProdutoForm.styles'
 import { ProdutosContext } from '../../../contexts/ProdutosProvider'
+import imageUrl from '../../../assets/cards-thumbnail.jpg';
 
+const BASE_URL = import.meta.env.VITE_BASE_URL;
 
 const ModalEditProduto = ({ close, editedProduto }) => {
   const {editProduto} = useContext(ProdutosContext)
@@ -13,33 +15,35 @@ const ModalEditProduto = ({ close, editedProduto }) => {
 
   const inputProdutoNome = useRef(null)
   const inputProdutoDescricao = useRef(null)
-  const qtdEstoque = useRef(null)
-  const preco = useRef(null)
-  const isImportado = useRef(null)
+  const inputQtdEstoque = useRef(null)
+  const inputPreco = useRef(null)
+  const inputIsImportado = useRef(null)
+
+  const inputImageRef = useRef(null)
+  const inputFileRef = useRef(null)
 
   useEffect(() => {
     inputProdutoNome.current.value = editedProduto?.nome
     inputProdutoDescricao.current.value = editedProduto?.descricao
-    qtdEstoque.current.value = editedProduto?.qtd_estoque
-    preco.current.value = editedProduto?.preco
-    isImportado.current.checked = !!editedProduto?.importado
+    inputQtdEstoque.current.value = editedProduto?.qtd_estoque
+    inputPreco.current.value = editedProduto?.preco
+    inputIsImportado.current.checked = !!editedProduto?.importado
   }, [])
 
   const handleNome = (e) => {
     const nome = e.target.value;
     console.log('Nome', e.target.value)
     setDisableButton(!(
-      validateRequiredFields()
+      e.target.value.length > 0
       && nome.trim() !== editedProduto?.nome.trim()
     ))
-    
   }
 
   const handleDescricao = (e) => {
     const descricao = e.target.value;
     const oldDescricao = editedProduto?.descricao
     setDisableButton(!(
-      validateRequiredFields()
+      descricao.length > 0
       && descricao.trim() !== oldDescricao.trim()
     ))
   }
@@ -47,7 +51,7 @@ const ModalEditProduto = ({ close, editedProduto }) => {
   const handleQtdEstoque = (e) => {
     const qtdEstoque = Number(e.target.value);
     setDisableButton(!(
-      validateRequiredFields()
+      Number.isInteger(qtdEstoque)
       && qtdEstoque != editedProduto?.qtd_estoque
     ))
   }
@@ -56,7 +60,7 @@ const ModalEditProduto = ({ close, editedProduto }) => {
     console.log('Preco', Number(e.target.value))
     console.log('Preco diff', +e.target.valueOf() !== +editedProduto?.preco)
     setDisableButton(!(
-      validateRequiredFields()
+      Number(e.target.value) > 0
       && +e.target.value !== +editedProduto?.preco
     ))
   }
@@ -66,27 +70,32 @@ const ModalEditProduto = ({ close, editedProduto }) => {
     setDisableButton(!(e.target?.checked !== !!editedProduto?.importado))
   }
 
+  const handleSelectedImage = (e) => {
+    console.log(e.target.files)
 
-  const validateRequiredFields = () => {
-      return (
-        inputProdutoNome.current.value.trim().length > 0 &&
-        inputProdutoDescricao.current.value.trim().length > 0 &&
-        Number(qtdEstoque.current.value) > 0 &&
-        Number(preco.current.value) > 0
-      )
-  };
+    const imageFile = e.target.files[0]
+    const reader = new FileReader();
 
+    reader.addEventListener(
+      "load",
+      () => {
+        // convert image file to base64 string
+        inputImageRef.current.src = reader.result;
+      },
+      false,
+    );
+
+    imageFile && reader.readAsDataURL(imageFile);
+    setDisableButton(!imageFile)
+  }
 
   const onSubmit = async (e) => {
     e.preventDefault()
     console.log('submit')
-    const message = await editProduto( editedProduto?.id, {
-      nome: inputProdutoNome.current.value,
-      descricao: inputProdutoDescricao.current.value,
-      qtd_estoque: qtdEstoque.current.value,
-      preco: preco.current.value,
-      importado: isImportado.current.checked
-    })
+
+    const produtoFormData = new FormData(e.target);
+    
+    const message = await editProduto( editedProduto?.id, produtoFormData)
     setMessage(message)
     setTimeout(close,3000)
 
@@ -97,6 +106,18 @@ const ModalEditProduto = ({ close, editedProduto }) => {
       close={close}
     >
       <form action="" method="get" onSubmit={onSubmit}>
+      <InputFileImage>
+        <img id="image-tag"
+          src={editedProduto?.imagem ? (BASE_URL+editedProduto?.imagem) : imageUrl}
+          ref={inputImageRef}
+        />
+        <input
+          id='image-field'
+          type="file"
+          name="imagem"
+          onChange={handleSelectedImage}
+          ref={inputFileRef} />
+      </InputFileImage>
         <label>Nome</label>
         <input
           type="text"
@@ -113,27 +134,29 @@ const ModalEditProduto = ({ close, editedProduto }) => {
           onChange={handleDescricao}
           ref={inputProdutoDescricao}
         />
+        <InputsNumbers>
         <label>Quantidade em Estoque:</label>
         <input
           type="number"
           onChange={handleQtdEstoque}
-          ref={qtdEstoque}
+          ref={inputQtdEstoque}
           name="qtd_estoque"
         />
-         <label>Preço (R$):</label>
+        <label>Preço (R$):</label>
         <input
           type="number"
           name="preco"
           step="0.01"
-          ref={preco}
+          ref={inputPreco}
           onChange={handlePreco}
         />
+      </InputsNumbers>
         <InputCheckbox>
           <span> Importado? </span>
           <input
             type="checkbox"
-            name="importao"
-            ref={isImportado}
+            name="importado"
+            ref={inputIsImportado}
             onChange={handleImportado}
           />
         </InputCheckbox>
@@ -144,8 +167,8 @@ const ModalEditProduto = ({ close, editedProduto }) => {
         >
           Atualizar Produto
         </button>
+        {message && <p className="message">{message}</p>}
       </form>
-      {message && <p className="message">{message}</p>}
     </Modal>
 }
 

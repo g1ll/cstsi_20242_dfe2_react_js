@@ -2,9 +2,10 @@ import { useContext, useState } from 'react'
 import Modal from '../../../components/Modal/Modal'
 import { Buttons } from './ModalRemoveProdutoForm.styles'
 import { ProdutosContext } from '../../../contexts/ProdutosProvider'
+import { ButtonDelete } from '../../../components/Button/button.styled'
 
 const ModalRemoveProduto = ({ close, removedProduto }) => {
-  const { deleteProduto } = useContext(ProdutosContext)
+  const { deleteProduto} = useContext(ProdutosContext)
   const [message, setMessage] = useState(null)
 
   const onSubmit = async (e) => {
@@ -28,16 +29,16 @@ const ModalRemoveProduto = ({ close, removedProduto }) => {
       <p>Tem certeza que deseja remover o produto  <strong>{removedProduto?.nome}</strong>?</p>
       <Buttons>
         <button
-          className={"btn-cancel"}
+          className={"btn-cancel btn"}
           onClick={close}
         >
           Cancelar
         </button>
-        <button
-          className={"btn btn-delete"}
+        <ButtonDelete
+          className={"btn-delete "}
         >
           Remover Produto
-        </button>
+        </ButtonDelete>
       </Buttons>
       {message && <p className="message ">{message}</p>}
     </form>
