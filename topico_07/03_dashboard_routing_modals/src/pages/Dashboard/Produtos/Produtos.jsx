@@ -1,17 +1,15 @@
 import { useContext, useEffect, useState } from 'react'
 import { ProdutosContext } from '../../../contexts/ProdutosProvider'
 import ProdutoTable from '../../../components/Tables/ProdutoTable/ProdutoTable'
-import ModalEditProduto from './ModalEditProduto'
 import ModalRemoveProduto from './ModalRemoveProduto.jsx'
-import ModalAddProduto from './ModalAddProduto.jsx'
 import { ProdutoDashStyled } from './ProdutoDash.styled.js'
+import { Link, Outlet, useNavigate } from 'react-router-dom'
 
 const Produtos = () => {
   const { data, loadProdutos } = useContext(ProdutosContext)
-  const [showModalAdd, setShowModalAdd] = useState(false)
-  const [showModalEdit, setShowModalEdit] = useState(false)
   const [showModalRemove, setShowModalRemove] = useState(false)
   const [produtoAtual, setProdutoAtual] = useState({})
+  const navigate = useNavigate();
 
   const findProdutoAtual = (id)=>{
     const findedProd = data.find(produto => produto.id == id)
@@ -20,8 +18,7 @@ const Produtos = () => {
   }
   
   const openModalEdit = (id) => {
-    findProdutoAtual(id)
-    setShowModalEdit(true)
+    navigate(`/dashboard/produtos/edit/${id}`);
   }
 
   const openModalRemove = (id) => {
@@ -36,9 +33,11 @@ const Produtos = () => {
   return (<ProdutoDashStyled>
     <h2>Produtos Dashboard</h2>
     <div>
-      <button className={"btn"} onClick={() => setShowModalAdd(true)}>
-        Novo Produto
-      </button>
+      <Link to={"/dashboard/produtos/create"}>
+        <button className={"btn"}>
+          Novo Produto
+        </button>
+      </Link>
     </div>
     {Array.isArray(data) && data?.length>0
       ? <ProdutoTable
@@ -47,9 +46,8 @@ const Produtos = () => {
       remove={openModalRemove}
     />
   : <p>Carregando...</p>}
-    {showModalAdd && <ModalAddProduto close={() => setShowModalAdd(false)} />}
-    {showModalEdit && <ModalEditProduto editedProduto={produtoAtual} close={() => setShowModalEdit(false)} />}
     {showModalRemove && <ModalRemoveProduto removedProduto={produtoAtual} close={() => setShowModalRemove(false)} />}
+    <Outlet/>
   </ProdutoDashStyled>
   )
 }
