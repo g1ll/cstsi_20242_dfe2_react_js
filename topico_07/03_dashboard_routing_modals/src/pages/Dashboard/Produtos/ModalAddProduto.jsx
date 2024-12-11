@@ -66,7 +66,7 @@ const ModalAddProduto = () => {
     const message = await addProduto(produtoFormData)
 
     setMessage(message)
-    setTimeout(close, 3000)
+    setTimeout(()=>navigate("/dashboard/produtos"), 3000)
   }
 
   return <Modal
