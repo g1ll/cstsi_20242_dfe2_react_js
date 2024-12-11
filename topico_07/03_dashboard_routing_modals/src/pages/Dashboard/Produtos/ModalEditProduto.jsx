@@ -14,6 +14,7 @@ const ModalEditProduto = () => {
   const [message, setMessage] = useState(null)
   const { id } = useParams();
   const navigate = useNavigate();
+  const close = ()=>navigate("/dashboard/produtos")
 
   const inputProdutoNome = useRef(null)
   const inputProdutoDescricao = useRef(null)
@@ -25,19 +26,23 @@ const ModalEditProduto = () => {
   const inputFileRef = useRef(null)
 
   useEffect(() => {
-    if (!editingProduto && data && id) {
+    if (data && id) {
       setEditingProduto(data.find((produto) => produto.id == id));
-      return;
     }
+  }, [data, id]);
 
-    inputProdutoNome.current.value = editingProduto?.nome;
-    inputProdutoDescricao.current.value = editingProduto?.descricao;
-    inputQtdEstoque.current.value = editingProduto?.qtd_estoque;
-    inputPreco.current.value = editingProduto?.preco;
-    inputIsImportado.current.checked = !!editingProduto?.importado;
-    console.log("editingProduto:", editingProduto);
+  useEffect(() => {
+    if(editingProduto){
+      inputProdutoNome.current.value = editingProduto?.nome;
+      inputProdutoDescricao.current.value = editingProduto?.descricao;
+      inputQtdEstoque.current.value = editingProduto?.qtd_estoque;
+      inputPreco.current.value = editingProduto?.preco;
+      inputIsImportado.current.checked = !!editingProduto?.importado;
+      console.log("editingProduto:", editingProduto);
+    }
+  }, [editingProduto]);
 
-  }, [editingProduto, data, id]);
+
 
   const handleNome = (e) => {
     const nome = e.target.value;
@@ -105,7 +110,7 @@ const ModalEditProduto = () => {
     try{
       const message = await editProduto( editingProduto?.id, produtoFormData)
       setMessage(message)
-      setTimeout(()=>navigate("/dashboard/produtos"),3000)
+      setTimeout(close,3000)
     }catch(error){
       setMessage(error?.message)
     }  
@@ -113,7 +118,7 @@ const ModalEditProduto = () => {
 
   return <Modal
       title={`Atualizar Produto ${editingProduto?.nome}`}
-      close={()=>navigate("/dashboard/produtos")}
+      close={close}
     >
       <form action="" method="get" onSubmit={onSubmit}>
       <InputFileImage>

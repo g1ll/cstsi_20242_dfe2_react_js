@@ -10,6 +10,7 @@ const ModalAddProduto = () => {
   const [disableButton, setDisableButton] = useState(true)
   const [message, setMessage] = useState(null)
   const navigate = useNavigate()
+  const close = ()=>navigate("/dashboard/produtos")
 
   const inputProdutoNome = useRef(null)
   const inputProdutoDescricao = useRef(null)
@@ -66,12 +67,12 @@ const ModalAddProduto = () => {
     const message = await addProduto(produtoFormData)
 
     setMessage(message)
-    setTimeout(()=>navigate("/dashboard/produtos"), 3000)
+    setTimeout(close, 3000)
   }
 
   return <Modal
     title={`Cadastrar Novo Produto`}
-    close={()=>navigate("/dashboard/produtos")}
+    close={close}
   >
     <FormContainer action="" method="get" onSubmit={onSubmit}>
       <label>Imagem do Produto:</label>
