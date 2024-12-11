@@ -2,17 +2,19 @@ import styled from 'styled-components'
 
 export const ModalContainer = styled.div`
   position: fixed;
-  width: 100%;
+  top:0px;
+  left:0px;
+  width: 100vw;
   height: 100vh;
   background-color: rgba(0,0,0,0.5);
-  display: flex;
-  justify-content: center;
+  display: grid;
+  place-items: center;
 `;
 
 export const ModalStyled = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: space-around;
+  justify-content: center;
   align-items: center;
   box-shadow: rgba(100, 100, 111, 0.3) 0px 7px 29px 0px;
   background-color: white;
@@ -24,16 +26,17 @@ export const ModalStyled = styled.div`
   top: 5vh;
   height: auto;
   max-height: 700px;
-  padding: 2.5vh;
+  padding: 5vh;
+  padding-top: .5vh;
   /* left: calc(50% - 125px); */
   /* bottom: 70px; */
-  >div{
+  > div{
     width: 95%;
-    height: 75%;
+    height: auto;
     display: flex;
     flex-direction: column;
-    justify-content: start;
-    align-items: center
+    justify-content: center;
+    align-items: center;
   }
   h1{
     margin-bottom: .3rem;
@@ -45,5 +48,10 @@ export const ModalStyled = styled.div`
 
   @media (min-width: 768px) {
     width: 65vw;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    background-color: var(--dark-bg-color);
+    border-color: var(--primary-color);
   }
 `

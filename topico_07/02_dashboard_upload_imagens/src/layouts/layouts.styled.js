@@ -11,6 +11,19 @@ export const LogoutIcon = styled(DefaultLogo)`
   img {
     width: 25px;
   }
+
+  svg{
+    width: 25px;
+    height: 25px;
+  }
+  svg path {
+      stroke: var(--second-color);
+    }
+
+  @media (prefers-color-scheme: dark) {
+    svg path {
+      stroke: var(--primary-color);
+    }
 `;
 
 export const GuestStyled = styled.div`
@@ -89,6 +102,22 @@ export const DefaultStyled = styled.div`
     & aside {
       width: 240px;
       border-radius: 0 0 20% 0/ 0 0 5% 0;
+    }
+  }
+  @media (prefers-color-scheme: dark) {
+    header {
+      background-color: var(--dark-main-bg-color);
+    }
+
+    header svg path{
+      color: var(--primary-color);
+    }
+    aside {
+      background-color: var(--dark-second-bg-color);
+    }
+
+    main h2 {
+      color: var(--primary-color);
     }
   }
 `;

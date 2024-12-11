@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 import { useEffect, useRef } from "react";
 import { DefaultLogo, DefaultStyled, LogoutIcon } from "./layouts.styled";
 import appLogo from "../assets/appLogo.svg";
-import logoutIcon from "../assets/logout.svg";
+import LogoutLogo from "../components/Logos/LogoutLogo";
 
 export default function Dash() {
   const { token, user, verifyLogin } = useAuthContext();
@@ -44,7 +44,7 @@ export default function Dash() {
           <div>Bem vindo, {user?.name} !</div>
           <LogoutIcon>
             <a href="#" onClick={onLogout} >
-                <img src={logoutIcon}/>
+                <LogoutLogo />
             </a>
           </LogoutIcon>
         </header>
