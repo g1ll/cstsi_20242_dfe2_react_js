@@ -1,3 +1,5 @@
+import { ButtonDelete, ButtonEdit } from "../../Button/button.styled"
+
 const ProdutoTable = ({ produtos, edit, remove }) => {
     return (
         <table>
@@ -20,8 +22,8 @@ const ProdutoTable = ({ produtos, edit, remove }) => {
                         <td>{produto.qtd_estoque}</td>
                         <td>{produto.importado ? 'Sim' : 'Não'}</td>
                         <td>
-                            <button onClick={() => edit(produto.id)}>Editar</button>
-                            <button onClick={() => remove(produto.id)}>Excluir</button>
+                            <ButtonEdit onClick={() => edit(produto.id)}>Editar</ButtonEdit>
+                            <ButtonDelete onClick={() => remove(produto.id)}>Excluir</ButtonDelete>
                         </td>
                     </tr>
                 ))}
