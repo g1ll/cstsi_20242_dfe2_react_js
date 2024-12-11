@@ -7,23 +7,27 @@ export const GlobalStyles = createGlobalStyle`
 
 :root{
     /* --primary-color:#5A08A6; */
-    /* --primary-color:#4ade80; */
-    --primary-color:#4ade80;
-    --dark-green:#40b96c;
     /* --second-color:#08A63F; */
+    --primary-color:#4ade80;
     --second-color:#1e40af;
+
+    --dark-green:#40b96c;
     --ligth-blue:#60a5fa;
 
     --ligth-gray:#f6f6f6;
     --ligth-gray-100:#e6e6e6;
 
     --dark-grey:#939393;
-
+    --dark-bg-color:#1a1a1a;
+    --dark-main-bg-color: #080808;
+    --dark-second-bg-color: #22614e;
     --add-confirm-color:#00a762;
     --remove-cancel-color:#b72424;
+    --remove-cancel-color-hover:#ff4d4d;
 
     --table-bg-color:#efefef;
     --main-bg-color:white;
+
 
     --default-grey-color: #b3b3b3
 
@@ -147,12 +151,16 @@ input:hover{
     color:white;
 }
 
+.btn-delete:hover {
+    background-color: var(--remove-cancel-color-hover);
+    color: var(--dark-bg-color);
+}
+
 .btn-cancel {
     background-color: var(--dark-grey);
     color:white;
     margin-right: 2px;
     border: 0px;
-    cursor: pointer;
 }
 
 .btn-logout {
@@ -213,6 +221,15 @@ table > tbody > tr > td {
   button {
     background-color: #f9f9f9;
   }
+
+  table{
+    background-color: #1a1a1a;
+    color: #f9f9f9;
+  };
+
+  table>thead>tr>th{
+    background-color: var(--dark-main-bg-color);
+    color: var(--primary-color);
+  }
 }
 `;
-
