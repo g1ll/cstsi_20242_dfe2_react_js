@@ -76,7 +76,7 @@ export const CardMain = styled.div`
   }
 `;
 
-export const CardImage = styled.img`
+export const CardImage = styled.div`
   display: flex;
   height: 350px;
   width: 100%;
