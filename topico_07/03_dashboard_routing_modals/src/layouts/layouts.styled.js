@@ -8,6 +8,8 @@ export const DefaultLogo = styled(NavLogo)`
 
 export const LogoutIcon = styled(DefaultLogo)`
   justify-content: end;
+  cursor: pointer;
+  
   img {
     width: 25px;
   }

@@ -42,10 +42,8 @@ export default function Dash() {
             </Link>
           </DefaultLogo>
           <div>Bem vindo, {user?.name} !</div>
-          <LogoutIcon>
-            <a href="#" onClick={onLogout} >
+          <LogoutIcon onClick={onLogout}>
                 <LogoutLogo />
-            </a>
           </LogoutIcon>
         </header>
         <main>
