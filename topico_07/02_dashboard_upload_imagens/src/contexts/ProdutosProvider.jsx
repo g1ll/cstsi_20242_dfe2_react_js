@@ -89,6 +89,7 @@ const ProdutosProvider = ({ children }) => {
     const { data } = await axiosClient.delete(`/produtos/${id}`);
     const { message } = data;
     console.log({ message });
+    loadProdutos();
     return message;
   };
 
