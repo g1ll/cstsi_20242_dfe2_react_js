@@ -122,7 +122,7 @@ const ModalEditProduto = ({ close, editedProduto }) => {
         <input
           type="text"
           placeholder="Nome do Produto"
-          name="name"
+          name="nome"
           onChange={handleNome}
           ref={inputProdutoNome}
         />
