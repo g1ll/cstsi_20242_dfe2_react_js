@@ -8,7 +8,7 @@ export const ProdutosContext = createContext({
   setData: () => {},
   editProduto: () => {},
   deleteProduto: () => {},
-  addProduto:()=>{}
+  addProduto: () => {},
 });
 
 const ProdutosProvider = ({ children }) => {
@@ -17,12 +17,11 @@ const ProdutosProvider = ({ children }) => {
   const loadProdutos = async (id = null) => {
     const url = id ? `/produtos/${id}` : `/produtos`;
     try {
-      const {data} = await axiosClient.get(url);
+      const { data } = await axiosClient.get(url);
       const _data = data?.data;
-      console.log({_data});
+      console.log({ _data });
 
-      if (!_data) 
-        throw new Error("Erro ao carregar produtos");
+      if (!_data) throw new Error("Erro ao carregar produtos");
 
       Array.isArray(_data) && _data.reverse();
       setData(_data);
@@ -31,34 +30,55 @@ const ProdutosProvider = ({ children }) => {
     }
   };
 
-  const addProduto = async (produto=null) => {
-    try{
-      if(!produto) throw Error("Produto não informado");
-      console.log(`Cadastrar novo produto:`,{produto});
-      const {data} = await axiosClient.post(`/produtos/`, produto)
-      if(!data) throw new Error("Erro ao atualizar produto");
-      const _data = data?.data; 
-      const {message} = data;
-     console.log({_data,message});
-     loadProdutos()
-     return message;
-    }catch(error){
+  const addProduto = async (formDataProduto = null) => {
+    try {
+      if (!formDataProduto) throw Error("Produto não informado");
+
+      console.log(`Cadastrar novo produto:`, formDataProduto);
+
+      const { data } = await axiosClient.post(`/produtos/`, formDataProduto, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
+
+      if (!data) throw new Error("Erro ao atualizar produto");
+      const _data = data?.data;
+      const { message } = data;
+      console.log({ _data, message });
+      loadProdutos();
+      return message;
+    } catch (error) {
       console.error(error);
       return error?.response?.data?.message || "Erro ao atualizar produto";
     }
   };
 
-  const editProduto = async (id, produto=null) => {
-    try{
-      console.log(`Atualizar Produto id: ${id}`,{produto});
-      const {data} = await axiosClient.put(`/produtos/${id}`, produto)
-      if(!data) throw new Error("Erro ao atualizar produto");
-      const _data = data?.data; 
-      const {message} = data;
-     console.log({_data,message});
-     loadProdutos()
-     return message;
-    }catch(error){
+  const editProduto = async (id, formDataProduto = null) => {
+    try {
+      if (!formDataProduto) throw Error("Produto não informado");
+
+      console.log(`Atualizar Produto id: ${id}`, { formDataProduto });
+
+      formDataProduto.append("_method", "put");
+
+      const { data } = await axiosClient.post(
+        `/produtos/${id}`,
+        formDataProduto,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
+
+      if (!data) throw new Error("Erro ao atualizar produto");
+      const _data = data?.data;
+      const { message } = data;
+      console.log({ _data, message });
+      loadProdutos();
+      return message;
+    } catch (error) {
       console.error(error);
       return error?.response?.data?.message || "Erro ao atualizar produto";
     }
@@ -66,10 +86,9 @@ const ProdutosProvider = ({ children }) => {
 
   const deleteProduto = async (id) => {
     alert(`Remove Produto id: ${id}`);
-    const {data} = await axiosClient.delete(`/produtos/${id}`);
-    const {message} = data;
-    console.log({message});
-    loadProdutos()
+    const { data } = await axiosClient.delete(`/produtos/${id}`);
+    const { message } = data;
+    console.log({ message });
     return message;
   };
 
