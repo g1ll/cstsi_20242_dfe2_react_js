@@ -33,7 +33,7 @@ const ProdutosProvider = ({ children }) => {
   const addProduto = async (formDataProduto = null) => {
     try {
       if (!formDataProduto) throw Error("Produto não informado");
-
+      formDataProduto['fornecedor_id'] = 1;
       console.log(`Cadastrar novo produto:`, formDataProduto);
 
       const { data } = await axiosClient.post(`/produtos/`, formDataProduto, {
